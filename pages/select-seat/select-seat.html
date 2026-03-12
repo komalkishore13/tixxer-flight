@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Seat — Tixxer Flight</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/progress-bar.css">
+  <link rel="stylesheet" href="./select-seat.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈</text></svg>">
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="../index/index.html" class="navbar-logo">
+        <div class="logo-icon">✈</div>
+        Tixxer <span class="highlight">Flight</span>
+      </a>
+      <div class="navbar-links">
+        <a href="../index/index.html">Flights</a>
+        <a href="../my-trips/my-trips.html">My Trips</a>
+      </div>
+      <div class="navbar-actions">
+        <div class="powered-badge">Powered by Sepolia Ethereum</div>
+        <button class="menu-toggle" onclick="toggleMobileMenu()">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== PROGRESS BAR ========== -->
+  <div class="progress-bar">
+    <div class="progress-inner">
+      <div class="progress-step completed">
+        <div class="step-circle">✓</div>
+        <span class="step-label">Search</span>
+      </div>
+      <div class="progress-line completed"></div>
+      <div class="progress-step completed">
+        <div class="step-circle">✓</div>
+        <span class="step-label">Select Flight</span>
+      </div>
+      <div class="progress-line active"></div>
+      <div class="progress-step active">
+        <div class="step-circle">3</div>
+        <span class="step-label">Seat Class</span>
+      </div>
+      <div class="progress-line"></div>
+      <div class="progress-step">
+        <div class="step-circle">4</div>
+        <span class="step-label">Review</span>
+      </div>
+      <div class="progress-line"></div>
+      <div class="progress-step">
+        <div class="step-circle">5</div>
+        <span class="step-label">Payment</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="seat-page">
+    <div class="seat-main">
+      <div class="flight-summary-card" id="flightSummary"></div>
+      <div class="seat-section">
+        <h2 class="seat-section-title">Choose Your Seat Class</h2>
+        <p class="seat-section-sub">Select a travel class that suits your comfort and budget</p>
+        <div class="seat-classes-grid" id="seatClassesGrid"></div>
+      </div>
+    </div>
+
+    <aside class="fare-sidebar" id="fareSidebar">
+      <div class="fare-card">
+        <div class="fare-title">Fare Summary</div>
+        <div class="fare-route" id="fareRoute">
+          <span class="fare-from">---</span>
+          <span class="fare-arrow">→</span>
+          <span class="fare-to">---</span>
+        </div>
+        <div class="fare-details" id="fareDetails">
+          <div class="fare-row"><span>Base Fare</span><span id="fareBase">--</span></div>
+          <div class="fare-row"><span>Taxes & Fees</span><span id="fareTax">--</span></div>
+          <div class="fare-row"><span>Platform Fee</span><span id="farePlatform">--</span></div>
+        </div>
+        <div class="fare-total-row"><span>Total</span><span class="fare-total" id="fareTotal">--</span></div>
+        <div class="fare-eth" id="fareEth">≈ -- ETH</div>
+        <button class="btn-continue" id="btnContinue" disabled onclick="continueToReview()">Select a seat class to continue</button>
+      </div>
+      <button class="btn-back" onclick="goBack()">← Back to Flight Results</button>
+    </aside>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">Tixxer <span class="highlight">Flight</span></div>
+      <div class="footer-text">Book flights. Pay with crypto. Built on Sepolia testnet.</div>
+    </div>
+  </footer>
+
+  <script src="../../data/flights.js"></script>
+  <script src="../../components/helpers.js"></script>
+  <script src="../../components/wallet.js"></script>
+  <script src="../../components/seat-selector.js"></script>
+  <script src="./select-seat.js"></script>
+</body>
+</html>

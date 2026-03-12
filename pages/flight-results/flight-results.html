@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Results — Tixxer Flight</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="./flight-results.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈</text></svg>">
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+
+      <a href="../index/index.html" class="navbar-logo">
+        <div class="logo-icon">✈</div>
+        Tixxer <span class="highlight">Flight</span>
+      </a>
+
+      <div class="navbar-links">
+        <a href="../index/index.html" class="active">Flights</a>
+        <a href="../my-trips/my-trips.html">My Trips</a>
+      </div>
+
+      <div class="navbar-actions">
+        <div class="powered-badge">Powered by Sepolia Ethereum</div>
+        <button class="menu-toggle" onclick="toggleMobileMenu()">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== SEARCH SUMMARY BAR ========== -->
+  <div class="search-summary">
+    <div class="summary-inner">
+
+      <div class="summary-route">
+        <div class="summary-city">
+          <div class="city-code" id="summaryFrom">---</div>
+          <div class="city-name" id="summaryFromCity">Loading</div>
+        </div>
+
+        <div class="summary-flight-icon">
+          <div class="plane-line">
+            <span class="line"></span>
+            <span>✈</span>
+          </div>
+          <span class="trip-label" id="summaryTrip">One Way</span>
+        </div>
+
+        <div class="summary-city">
+          <div class="city-code" id="summaryTo">---</div>
+          <div class="city-name" id="summaryToCity">Loading</div>
+        </div>
+      </div>
+
+      <div class="summary-details">
+        <div class="summary-chip">
+          <span class="chip-icon">📅</span>
+          <span id="summaryDate">--</span>
+        </div>
+        <div class="summary-chip">
+          <span class="chip-icon">👥</span>
+          <span id="summaryPax">1 Traveller</span>
+        </div>
+        <button class="btn-modify" onclick="modifySearch()">✏ Modify</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== MAIN RESULTS LAYOUT ========== -->
+  <main class="results-page">
+
+    <!-- ── FILTER SIDEBAR ── -->
+    <aside class="filter-sidebar">
+
+      <!-- Price Range -->
+      <div class="filter-card">
+        <div class="filter-title">
+          <span class="filter-icon">💰</span> Price Range
+        </div>
+        <div class="price-range-display">
+          <span>₹1,000</span>
+          <span id="priceMax">₹10,000</span>
+        </div>
+        <input
+          type="range"
+          class="price-slider"
+          id="priceSlider"
+          min="1000"
+          max="10000"
+          step="500"
+          value="10000"
+          oninput="updatePriceFilter(this.value)"
+        >
+      </div>
+
+      <!-- Departure Time -->
+      <div class="filter-card">
+        <div class="filter-title">
+          <span class="filter-icon">🕐</span> Departure Time
+        </div>
+        <div class="time-chips">
+          <div class="time-chip" data-slot="morning" onclick="setTimeFilter('morning')">
+            <span class="time-icon">🌅</span>
+            <span class="time-label">6AM–12PM</span>
+          </div>
+          <div class="time-chip" data-slot="afternoon" onclick="setTimeFilter('afternoon')">
+            <span class="time-icon">☀️</span>
+            <span class="time-label">12PM–6PM</span>
+          </div>
+          <div class="time-chip" data-slot="evening" onclick="setTimeFilter('evening')">
+            <span class="time-icon">🌆</span>
+            <span class="time-label">6PM–12AM</span>
+          </div>
+          <div class="time-chip" data-slot="night" onclick="setTimeFilter('night')">
+            <span class="time-icon">🌙</span>
+            <span class="time-label">12AM–6AM</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stops -->
+      <div class="filter-card">
+        <div class="filter-title">
+          <span class="filter-icon">🛑</span> Stops
+        </div>
+        <div class="stops-options">
+          <div class="stop-option active" data-stops="0" onclick="toggleStops(0)">
+            <div class="stop-checkbox">✓</div>
+            <span>Non-stop</span>
+          </div>
+          <div class="stop-option active" data-stops="1" onclick="toggleStops(1)">
+            <div class="stop-checkbox">✓</div>
+            <span>1 Stop</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Airlines -->
+      <div class="filter-card">
+        <div class="filter-title">
+          <span class="filter-icon">✈</span> Airlines
+        </div>
+        <div class="airline-options" id="airlineFilters">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Clear Filters -->
+      <button class="btn-clear-filters" onclick="clearAllFilters()">
+        ✕ Clear All Filters
+      </button>
+
+    </aside>
+
+    <!-- ── RESULTS COLUMN ── -->
+    <div class="results-column">
+
+      <!-- Header -->
+      <div class="results-header">
+        <div class="results-count" id="resultsCount">
+          <span>0</span> flights found
+        </div>
+      </div>
+
+      <!-- Sort Tabs -->
+      <div class="sort-tabs">
+        <button class="sort-tab active" data-sort="best" onclick="setSortTab('best')">
+          <span class="sort-tab-icon">&#9733;</span>
+          <div class="sort-tab-text">
+            <span class="sort-tab-label">Best</span>
+            <span class="sort-tab-price" id="sortBestPrice">--</span>
+          </div>
+        </button>
+        <button class="sort-tab" data-sort="cheapest" onclick="setSortTab('cheapest')">
+          <span class="sort-tab-icon">&#8377;</span>
+          <div class="sort-tab-text">
+            <span class="sort-tab-label">Cheapest</span>
+            <span class="sort-tab-price" id="sortCheapestPrice">--</span>
+          </div>
+        </button>
+        <button class="sort-tab" data-sort="fastest" onclick="setSortTab('fastest')">
+          <span class="sort-tab-icon">&#9889;</span>
+          <div class="sort-tab-text">
+            <span class="sort-tab-label">Fastest</span>
+            <span class="sort-tab-price" id="sortFastestPrice">--</span>
+          </div>
+        </button>
+      </div>
+
+      <!-- Column Headers -->
+      <div class="results-col-header">
+        <span>Airline</span>
+        <span>Schedule</span>
+        <span>Stops</span>
+        <span>Price</span>
+        <span></span>
+      </div>
+
+      <!-- Loading State -->
+      <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Searching for the best flights...</div>
+        <div class="loading-sub">Comparing prices across airlines</div>
+      </div>
+
+      <!-- Flight Cards -->
+      <div class="results-column" id="flightsList" style="display: none; flex-direction: column; gap: 12px;">
+        <!-- Populated by JS -->
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">Tixxer <span class="highlight">Flight</span></div>
+      <div class="footer-text">Book flights. Pay with crypto. Built on Sepolia testnet.</div>
+    </div>
+  </footer>
+
+  <script src="../../data/flights.js"></script>
+  <script src="../../components/helpers.js"></script>
+  <script src="../../components/wallet.js"></script>
+  <script src="../../components/flight-card.js"></script>
+  <script src="./flight-results.js"></script>
+</body>
+</html>

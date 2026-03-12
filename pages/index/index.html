@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tixxer Flight — Book Flights with Tixxer</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈</text></svg>">
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+
+      <a href="./index.html" class="navbar-logo">
+        <div class="logo-icon">✈</div>
+        Tixxer <span class="highlight">Flight</span>
+      </a>
+
+      <div class="navbar-links">
+        <a href="./index.html" class="active">Flights</a>
+        <a href="../my-trips/my-trips.html">My Trips</a>
+      </div>
+
+      <div class="navbar-actions">
+        <div class="powered-badge">Powered by Sepolia Ethereum</div>
+        <button class="menu-toggle" onclick="toggleMobileMenu()">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="hero-deco deco-1">✈</div>
+    <div class="hero-deco deco-2">✈</div>
+
+    <div class="hero-content">
+      <h1>Book Flights with <span class="gradient-text">Tixxer</span></h1>
+      <p>Compare fares across 9 airlines, sort by cheapest, fastest or fanciest — and book in seconds.</p>
+    </div>
+  </section>
+
+  <!-- ========== SEARCH CARD ========== -->
+  <section class="search-section">
+    <div class="search-card">
+
+      <!-- Trip Type Tabs -->
+      <div class="trip-tabs">
+        <button class="trip-tab active" data-trip="oneway" onclick="setTripType('oneway', this)">
+          <span class="tab-icon">→</span> One Way
+        </button>
+        <button class="trip-tab" data-trip="roundtrip" onclick="setTripType('roundtrip', this)">
+          <span class="tab-icon">⇄</span> Round Trip
+        </button>
+      </div>
+
+      <!-- Search Form -->
+      <div class="search-form">
+
+        <!-- FROM -->
+        <div class="input-group" id="fromGroup" onclick="openCityDropdown('from')">
+          <div class="input-label">
+            <span class="label-icon">📍</span> FROM
+          </div>
+          <input
+            type="text"
+            class="input-field"
+            id="fromInput"
+            placeholder="Enter city"
+            autocomplete="off"
+            oninput="filterCities('from')"
+            onfocus="openCityDropdown('from')"
+          >
+          <div class="input-sub" id="fromSub">Select departure city</div>
+
+          <!-- City Dropdown -->
+          <div class="city-dropdown" id="fromDropdown">
+            <div class="dropdown-header">Popular Cities</div>
+          </div>
+        </div>
+
+        <!-- SWAP -->
+        <div class="swap-btn-wrapper">
+          <button class="swap-btn" onclick="swapCities()" title="Swap cities">⇄</button>
+        </div>
+
+        <!-- TO -->
+        <div class="input-group" id="toGroup" onclick="openCityDropdown('to')">
+          <div class="input-label">
+            <span class="label-icon">📍</span> TO
+          </div>
+          <input
+            type="text"
+            class="input-field"
+            id="toInput"
+            placeholder="Enter city"
+            autocomplete="off"
+            oninput="filterCities('to')"
+            onfocus="openCityDropdown('to')"
+          >
+          <div class="input-sub" id="toSub">Select destination city</div>
+
+          <!-- City Dropdown -->
+          <div class="city-dropdown" id="toDropdown">
+            <div class="dropdown-header">Popular Cities</div>
+          </div>
+        </div>
+
+        <!-- DEPARTURE DATE -->
+        <div class="input-group">
+          <div class="input-label">
+            <span class="label-icon">📅</span> DEPARTURE
+          </div>
+          <input
+            type="date"
+            class="input-field"
+            id="departDate"
+          >
+          <div class="input-sub" id="departSub">Pick a date</div>
+        </div>
+
+        <!-- RETURN DATE -->
+        <div class="input-group disabled" id="returnGroup">
+          <div class="input-label">
+            <span class="label-icon">📅</span> RETURN
+          </div>
+          <input
+            type="date"
+            class="input-field"
+            id="returnDate"
+            disabled
+          >
+          <div class="input-sub" id="returnSub">For round trips</div>
+        </div>
+
+        <!-- TRAVELLERS -->
+        <div class="input-group travellers-group" id="travellersGroup" onclick="toggleTravellers(event)">
+          <div class="input-label">
+            <span class="label-icon">👥</span> TRAVELLERS
+          </div>
+          <div class="travellers-display">
+            <span class="count" id="totalTravellers">1</span>
+            <span class="label" id="travellersLabel">Traveller</span>
+          </div>
+          <div class="input-sub">Passenger(s)</div>
+
+          <!-- Travellers Dropdown -->
+          <div class="travellers-dropdown" id="travellersDropdown">
+            <div class="traveller-row">
+              <div class="traveller-info">
+                <div class="traveller-type">Adults</div>
+                <div class="traveller-age">12+ years</div>
+              </div>
+              <div class="traveller-counter">
+                <button class="counter-btn" onclick="updateTraveller(event, 'adults', -1)" id="adultMinus" disabled>−</button>
+                <span class="counter-value" id="adultCount">1</span>
+                <button class="counter-btn" onclick="updateTraveller(event, 'adults', 1)" id="adultPlus">+</button>
+              </div>
+            </div>
+            <div class="traveller-row">
+              <div class="traveller-info">
+                <div class="traveller-type">Children</div>
+                <div class="traveller-age">2–12 years</div>
+              </div>
+              <div class="traveller-counter">
+                <button class="counter-btn" onclick="updateTraveller(event, 'children', -1)" id="childMinus" disabled>−</button>
+                <span class="counter-value" id="childCount">0</span>
+                <button class="counter-btn" onclick="updateTraveller(event, 'children', 1)" id="childPlus">+</button>
+              </div>
+            </div>
+            <div class="traveller-row">
+              <div class="traveller-info">
+                <div class="traveller-type">Infants</div>
+                <div class="traveller-age">Under 2 years</div>
+              </div>
+              <div class="traveller-counter">
+                <button class="counter-btn" onclick="updateTraveller(event, 'infants', -1)" id="infantMinus" disabled>−</button>
+                <span class="counter-value" id="infantCount">0</span>
+                <button class="counter-btn" onclick="updateTraveller(event, 'infants', 1)" id="infantPlus">+</button>
+              </div>
+            </div>
+            <button class="travellers-done" onclick="closeTravellers(event)">Done</button>
+          </div>
+        </div>
+
+        <!-- SEARCH BUTTON -->
+        <div class="search-btn-wrapper">
+          <button class="btn-search" onclick="searchFlights()">
+            SEARCH FLIGHTS
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TRUST STRIP ========== -->
+  <div class="trust-strip">
+    <div class="trust-item">
+      <div class="trust-icon">🔒</div>
+      <div class="trust-text">
+        <div class="trust-title">Blockchain Secured</div>
+        <div class="trust-desc">Payments on Sepolia testnet</div>
+      </div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">💸</div>
+      <div class="trust-text">
+        <div class="trust-title">Lowest Fares</div>
+        <div class="trust-desc">No hidden charges</div>
+      </div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">⚡</div>
+      <div class="trust-text">
+        <div class="trust-title">Instant Booking</div>
+        <div class="trust-desc">Confirm in seconds</div>
+      </div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🛡️</div>
+      <div class="trust-text">
+        <div class="trust-title">Free Cancellation</div>
+        <div class="trust-desc">On select flights</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== POPULAR ROUTES ========== -->
+  <section class="popular-section">
+    <div class="section-header">
+      <h2>Popular Routes</h2>
+      <a href="#">View all →</a>
+    </div>
+    <div class="routes-grid" id="popularRoutesGrid">
+      <!-- Populated by JS with dynamic pricing -->
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">Tixxer <span class="highlight">Flight</span></div>
+      <div class="footer-text">Book flights. Pay with crypto. Built on Sepolia testnet.</div>
+    </div>
+  </footer>
+
+  <script src="../../data/flights.js"></script>
+  <script src="../../components/helpers.js"></script>
+  <script src="../../components/wallet.js"></script>
+  <script src="../../components/search-form.js"></script>
+  <script src="./index.js"></script>
+</body>
+</html>

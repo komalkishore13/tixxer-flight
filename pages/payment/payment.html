@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment — Tixxer Flight</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/progress-bar.css">
+  <link rel="stylesheet" href="./payment.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈</text></svg>">
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="../index/index.html" class="navbar-logo">
+        <div class="logo-icon">✈</div>
+        Tixxer <span class="highlight">Flight</span>
+      </a>
+      <div class="navbar-links">
+        <a href="../index/index.html">Flights</a>
+        <a href="../my-trips/my-trips.html">My Trips</a>
+      </div>
+      <div class="navbar-actions">
+        <div class="powered-badge">Powered by Sepolia Ethereum</div>
+        <button class="menu-toggle" onclick="toggleMobileMenu()">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== PROGRESS BAR ========== -->
+  <div class="progress-bar">
+    <div class="progress-inner">
+      <div class="progress-step completed">
+        <div class="step-circle">✓</div>
+        <span class="step-label">Search</span>
+      </div>
+      <div class="progress-line completed"></div>
+      <div class="progress-step completed">
+        <div class="step-circle">✓</div>
+        <span class="step-label">Select Flight</span>
+      </div>
+      <div class="progress-line completed"></div>
+      <div class="progress-step completed">
+        <div class="step-circle">✓</div>
+        <span class="step-label">Seat Class</span>
+      </div>
+      <div class="progress-line completed"></div>
+      <div class="progress-step completed">
+        <div class="step-circle">✓</div>
+        <span class="step-label">Review</span>
+      </div>
+      <div class="progress-line active"></div>
+      <div class="progress-step active">
+        <div class="step-circle">5</div>
+        <span class="step-label">Payment</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="payment-page">
+    <div class="payment-main">
+      <div class="payment-title-section">
+        <h1 class="payment-page-title">Complete Payment</h1>
+        <p class="payment-page-sub">Pay securely using MetaMask on the Sepolia testnet</p>
+      </div>
+
+      <!-- Step 1: Connect Wallet -->
+      <div class="pay-step-card" id="stepConnect">
+        <div class="pay-step-header">
+          <div class="pay-step-num active">1</div>
+          <div>
+            <h3 class="pay-step-title">Connect MetaMask Wallet</h3>
+            <p class="pay-step-sub">Link your wallet to proceed with payment</p>
+          </div>
+        </div>
+        <div class="pay-step-body" id="connectBody">
+          <div class="wallet-not-connected" id="walletPrompt">
+            <div class="metamask-logo-large">🦊</div>
+            <p class="wallet-prompt-text">Connect your MetaMask wallet to pay for this booking</p>
+            <button class="btn-connect-wallet" id="btnConnect" onclick="handleConnectWallet()">
+              <span class="btn-fox">🦊</span> Connect MetaMask
+            </button>
+            <p class="wallet-hint">Make sure you are on the <strong>Sepolia Testnet</strong></p>
+          </div>
+
+          <div class="wallet-connected" id="walletConnected" style="display: none;">
+            <div class="wallet-status-row">
+              <div class="wallet-status-dot"></div>
+              <span class="wallet-status-text">Wallet Connected</span>
+            </div>
+            <div class="wallet-address-box">
+              <div class="wallet-address-label">Address</div>
+              <div class="wallet-address" id="walletAddress">0x0000...0000</div>
+            </div>
+            <div class="wallet-info-row">
+              <div class="wallet-info-item">
+                <span class="wallet-info-label">Network</span>
+                <span class="wallet-info-value" id="walletNetwork">Sepolia</span>
+              </div>
+              <div class="wallet-info-item">
+                <span class="wallet-info-label">Balance</span>
+                <span class="wallet-info-value" id="walletBalance">-- ETH</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Confirm Payment -->
+      <div class="pay-step-card" id="stepPay">
+        <div class="pay-step-header">
+          <div class="pay-step-num" id="payStepNum">2</div>
+          <div>
+            <h3 class="pay-step-title">Confirm Payment</h3>
+            <p class="pay-step-sub">Review the amount and authorize the transaction</p>
+          </div>
+        </div>
+        <div class="pay-step-body" id="payBody">
+          <div class="pay-locked" id="payLocked">
+            <div class="pay-locked-icon">🔒</div>
+            <p>Connect your wallet first to unlock payment</p>
+          </div>
+
+          <div class="pay-ready" id="payReady" style="display: none;">
+            <div class="pay-amount-display">
+              <div class="pay-amount-label">You will pay</div>
+              <div class="pay-amount-eth" id="payAmountEth">0.0000 ETH</div>
+              <div class="pay-amount-fiat" id="payAmountFiat">≈ ₹0</div>
+            </div>
+            <div class="pay-details-mini">
+              <div class="pay-detail-row">
+                <span>To Address</span>
+                <span class="pay-to-addr">0xTixxer...Contract</span>
+              </div>
+              <div class="pay-detail-row">
+                <span>Network</span>
+                <span class="pay-network-badge">Sepolia Testnet</span>
+              </div>
+              <div class="pay-detail-row">
+                <span>Est. Gas Fee</span>
+                <span>~0.0001 ETH</span>
+              </div>
+            </div>
+            <button class="btn-pay-now" id="btnPayNow" onclick="handlePayment()">
+              <span class="btn-fox">🦊</span> Pay with MetaMask
+            </button>
+          </div>
+
+          <div class="pay-processing" id="payProcessing" style="display: none;">
+            <div class="processing-spinner"></div>
+            <div class="processing-title">Processing Payment...</div>
+            <div class="processing-sub">Confirming transaction on Sepolia testnet</div>
+            <div class="processing-bar-wrap">
+              <div class="processing-bar" id="processingBar"></div>
+            </div>
+            <div class="processing-warn">Do not close or refresh this page</div>
+          </div>
+
+          <div class="pay-success" id="paySuccess" style="display: none;">
+            <div class="success-icon">✓</div>
+            <div class="success-title">Payment Successful!</div>
+            <div class="success-sub">Your transaction has been confirmed</div>
+            <div class="success-tx-row">
+              <span class="success-tx-label">Transaction Hash</span>
+              <span class="success-tx-hash" id="txHashDisplay">0x000...000</span>
+            </div>
+            <div class="success-redirect" id="redirectMsg">Redirecting to your ticket in <span id="countdown">5</span>s...</div>
+          </div>
+
+          <div class="pay-error" id="payError" style="display: none;">
+            <div class="error-icon">✕</div>
+            <div class="error-title">Payment Failed</div>
+            <div class="error-msg" id="errorMsg">Transaction was rejected or failed.</div>
+            <button class="btn-retry" onclick="resetPayment()">Try Again</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── RIGHT: Booking Summary ── -->
+    <aside class="payment-sidebar">
+      <div class="pay-summary-card">
+        <div class="pay-summary-title">Booking Summary</div>
+        <div class="pay-summary-flight" id="summaryFlight"></div>
+        <div class="pay-summary-divider"></div>
+        <div class="pay-summary-rows" id="summaryRows"></div>
+        <div class="pay-summary-divider"></div>
+        <div class="pay-summary-total-row">
+          <span>Total</span>
+          <span class="pay-summary-total" id="summaryTotal">--</span>
+        </div>
+        <div class="pay-summary-eth" id="summaryEth">≈ -- ETH</div>
+      </div>
+      <button class="btn-back-payment" onclick="goBack()">← Back to Review</button>
+    </aside>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">Tixxer <span class="highlight">Flight</span></div>
+      <div class="footer-text">Book flights. Pay with crypto. Built on Sepolia testnet.</div>
+    </div>
+  </footer>
+
+  <script src="../../data/flights.js"></script>
+  <script src="../../components/helpers.js"></script>
+  <script src="../../components/booking-summary.js"></script>
+  <script src="./payment.js"></script>
+</body>
+</html>

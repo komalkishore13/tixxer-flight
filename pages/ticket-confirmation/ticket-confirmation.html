@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Confirmed — Tixxer Flight</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="./ticket-confirmation.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈</text></svg>">
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="../index/index.html" class="navbar-logo">
+        <div class="logo-icon">✈</div>
+        Tixxer <span class="highlight">Flight</span>
+      </a>
+      <div class="navbar-links">
+        <a href="../index/index.html">Flights</a>
+        <a href="../my-trips/my-trips.html">My Trips</a>
+      </div>
+      <div class="navbar-actions">
+        <div class="powered-badge">Powered by Sepolia Ethereum</div>
+        <button class="menu-toggle" onclick="toggleMobileMenu()">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== SUCCESS BANNER ========== -->
+  <div class="success-banner">
+    <div class="success-banner-inner">
+      <div class="success-checkmark">
+        <div class="check-circle">
+          <svg class="check-svg" viewBox="0 0 52 52">
+            <circle class="check-circle-bg" cx="26" cy="26" r="25" fill="none"/>
+            <path class="check-path" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+          </svg>
+        </div>
+      </div>
+      <h1 class="success-title">Booking Confirmed!</h1>
+      <p class="success-sub">Your flight has been booked successfully. Your e-ticket is ready.</p>
+    </div>
+  </div>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="confirm-page">
+    <div class="ticket-card" id="ticketCard">
+      <div class="ticket-header">
+        <div class="ticket-brand">
+          <span class="ticket-brand-icon">✈</span>
+          TIXXER FLIGHT
+        </div>
+        <div class="ticket-header-right">
+          <div class="ticket-label">Booking ID</div>
+          <div class="ticket-booking-id" id="ticketBookingId">TXF-XXXXXXXX</div>
+        </div>
+      </div>
+
+      <div class="ticket-body">
+        <div class="ticket-route">
+          <div class="ticket-endpoint">
+            <div class="ticket-ep-code" id="ticketFromCode">DEL</div>
+            <div class="ticket-ep-city" id="ticketFromCity">New Delhi</div>
+            <div class="ticket-ep-time" id="ticketDepTime">06:15</div>
+            <div class="ticket-ep-label">DEPARTURE</div>
+          </div>
+
+          <div class="ticket-route-middle">
+            <div class="ticket-airline-badge" id="ticketAirlineBadge">
+              <img class="ticket-al-logo" id="ticketAirlineLogo" src="../../assets/airlines/AI.png" alt="Airline">
+              <span class="ticket-al-name" id="ticketAirlineName">Air India</span>
+            </div>
+            <div class="ticket-route-line">
+              <div class="ticket-dot start"></div>
+              <div class="ticket-line"></div>
+              <div class="ticket-plane">✈</div>
+              <div class="ticket-dot end"></div>
+            </div>
+            <div class="ticket-duration" id="ticketDuration">2h 10m · Non-stop</div>
+          </div>
+
+          <div class="ticket-endpoint">
+            <div class="ticket-ep-code" id="ticketToCode">BOM</div>
+            <div class="ticket-ep-city" id="ticketToCity">Mumbai</div>
+            <div class="ticket-ep-time" id="ticketArrTime">08:25</div>
+            <div class="ticket-ep-label">ARRIVAL</div>
+          </div>
+        </div>
+
+        <div class="ticket-tear">
+          <div class="tear-circle left"></div>
+          <div class="tear-line"></div>
+          <div class="tear-circle right"></div>
+        </div>
+
+        <div class="ticket-details-grid">
+          <div class="ticket-detail"><div class="td-label">Passenger</div><div class="td-value" id="ticketPassenger">--</div></div>
+          <div class="ticket-detail"><div class="td-label">Flight</div><div class="td-value" id="ticketFlightNo">--</div></div>
+          <div class="ticket-detail"><div class="td-label">Date</div><div class="td-value" id="ticketDate">--</div></div>
+          <div class="ticket-detail"><div class="td-label">Seat Class</div><div class="td-value" id="ticketSeatClass">--</div></div>
+          <div class="ticket-detail"><div class="td-label">Travellers</div><div class="td-value" id="ticketPax">--</div></div>
+          <div class="ticket-detail"><div class="td-label">Status</div><div class="td-value td-confirmed">Confirmed</div></div>
+        </div>
+
+        <div class="ticket-tear">
+          <div class="tear-circle left"></div>
+          <div class="tear-line"></div>
+          <div class="tear-circle right"></div>
+        </div>
+
+        <div class="ticket-payment">
+          <div class="ticket-payment-left">
+            <div class="tp-row"><span class="tp-label">Amount Paid</span><span class="tp-value" id="ticketAmount">--</span></div>
+            <div class="tp-row"><span class="tp-label">Paid in ETH</span><span class="tp-value tp-eth" id="ticketEth">--</span></div>
+            <div class="tp-row"><span class="tp-label">Transaction</span><a class="tp-value tp-txhash" id="ticketTxHash" href="#" target="_blank">--</a></div>
+            <div class="tp-row"><span class="tp-label">Network</span><span class="tp-value tp-network">Sepolia Testnet</span></div>
+          </div>
+          <div class="ticket-payment-right">
+            <div class="ticket-qr" id="ticketQR"></div>
+            <div class="qr-label">Scan to verify</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ticket-footer">
+        <span>This is an electronic ticket. Please carry a valid ID for verification.</span>
+        <span class="ticket-footer-brand">tixxerflight.io</span>
+      </div>
+    </div>
+
+    <div class="confirm-actions">
+      <button class="btn-download" onclick="downloadTicketPDF()">
+        <span class="btn-dl-icon">📥</span> Download Ticket (PDF)
+      </button>
+      <button class="btn-home" onclick="window.location.href='../index/index.html'">
+        <span class="btn-home-icon">🏠</span> Book Another Flight
+      </button>
+    </div>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">Tixxer <span class="highlight">Flight</span></div>
+      <div class="footer-text">Book flights. Pay with crypto. Built on Sepolia testnet.</div>
+    </div>
+  </footer>
+
+  <script src="../../data/flights.js"></script>
+  <script src="../../components/helpers.js"></script>
+  <script src="../../components/booking-summary.js"></script>
+  <script src="./ticket-confirmation.js"></script>
+</body>
+</html>

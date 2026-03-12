@@ -1,0 +1,9 @@
+{
+  "name": "tixxer-flight",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tixxer Flight — Book flights with crypto on Sepolia testnet",
+  "dependencies": {
+    "mongodb": "^6.12.0"
+  }
+}

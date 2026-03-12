@@ -1,0 +1,622 @@
+/* ============================================
+   TIXXER FLIGHT — Review Booking Page
+   ============================================ */
+
+/* ─── Page Layout ────────────────────────── */
+.review-page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 32px 24px 60px;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 28px;
+  min-height: calc(100vh - 260px);
+}
+
+/* ─── Title Section ──────────────────────── */
+.review-title-section {
+  margin-bottom: 24px;
+}
+
+.review-page-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.review-page-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ─── Review Cards ───────────────────────── */
+.review-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+  overflow: hidden;
+  animation: fadeSlideIn 0.5s ease-out both;
+}
+
+.review-card:nth-child(2) { animation-delay: 0.05s; }
+.review-card:nth-child(3) { animation-delay: 0.1s; }
+.review-card:nth-child(4) { animation-delay: 0.15s; }
+.review-card:nth-child(5) { animation-delay: 0.2s; }
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.review-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.review-card-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  border: 1px solid var(--border);
+}
+
+.review-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.review-card-body {
+  padding: 24px;
+}
+
+/* ─── Flight Details Section ─────────────── */
+.flight-detail-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.fd-airline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fd-airline-logo {
+  width: 44px;
+  height: 44px;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  object-fit: contain;
+  padding: 4px;
+}
+
+.fd-airline-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.fd-flight-no {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.fd-date {
+  padding: 8px 16px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Route visual */
+.fd-route {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.fd-endpoint {
+  text-align: center;
+  min-width: 110px;
+}
+
+.fd-time {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.fd-code {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 2px;
+}
+
+.fd-city {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.fd-middle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 16px 0;
+}
+
+.fd-duration {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.fd-line-wrap {
+  width: 100%;
+  position: relative;
+  height: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.fd-line {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), #4facfe);
+  border-radius: 1px;
+}
+
+.fd-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.fd-dot.start { left: -4px; }
+.fd-dot.end   { right: -4px; }
+
+.fd-plane {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--white);
+  padding: 0 6px;
+  font-size: 14px;
+  color: var(--primary);
+}
+
+.fd-stops {
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.fd-stops.non-stop { color: var(--accent); }
+.fd-stops.has-stop { color: #e65100; }
+
+/* Detail grid */
+.fd-details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.fd-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fd-detail-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.fd-detail-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ─── Passenger Info ─────────────────────── */
+.pax-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.pax-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pax-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.pax-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.pax-breakdown {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 24px;
+}
+
+.pax-count-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.pax-count-chip .pax-num {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 16px;
+}
+
+/* ─── Seat Class Section ─────────────────── */
+.seat-review-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.seat-review-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.seat-review-icon.economy    { background: #e3f2fd; }
+.seat-review-icon.premium_economy { background: #f3e5f5; }
+.seat-review-icon.business   { background: #fff3e0; }
+.seat-review-icon.first      { background: #fce4ec; }
+
+.seat-review-info {
+  flex: 1;
+}
+
+.seat-review-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.seat-review-price-each {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.seat-review-perks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.perk-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--bg);
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.perk-chip-icon {
+  font-size: 13px;
+}
+
+/* ─── Info Card ──────────────────────────── */
+.info-card .review-card-header {
+  background: #fff8e1;
+}
+
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-list li {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  padding-left: 20px;
+  position: relative;
+}
+
+.info-list li::before {
+  content: '•';
+  position: absolute;
+  left: 4px;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.info-list li strong {
+  color: var(--text-primary);
+}
+
+/* ─── Price Sidebar ──────────────────────── */
+.review-sidebar {
+  position: sticky;
+  top: 80px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.price-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 24px;
+  animation: fadeSlideIn 0.5s ease-out 0.15s both;
+}
+
+.price-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 18px;
+}
+
+.price-route-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: 1px;
+}
+
+.route-arrow-sm {
+  color: var(--primary);
+  font-size: 16px;
+}
+
+.price-class-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.price-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price-row-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.price-row-label .price-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  display: block;
+}
+
+.price-row-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.price-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0 16px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--border),
+    var(--border) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+.price-total-section {
+  margin-bottom: 24px;
+}
+
+.price-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price-total-row span:first-child {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.price-grand-total {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.price-eth-row {
+  text-align: right;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: 4px;
+}
+
+.btn-pay {
+  width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, var(--primary), #4facfe);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 20px rgba(26, 115, 232, 0.3);
+  letter-spacing: 0.3px;
+}
+
+.btn-pay:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(26, 115, 232, 0.4);
+}
+
+.pay-note {
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 12px;
+  line-height: 1.4;
+}
+
+.btn-back-review {
+  width: 100%;
+  padding: 12px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-back-review:hover {
+  border-color: var(--text-secondary);
+  color: var(--text-primary);
+}
+
+/* ─── Responsive ─────────────────────────── */
+@media (max-width: 1024px) {
+  .review-page {
+    grid-template-columns: 1fr;
+  }
+
+  .review-sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .fd-route {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .fd-middle {
+    width: 100%;
+    padding: 0;
+  }
+
+  .fd-details-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .flight-detail-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .pax-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pax-breakdown {
+    flex-wrap: wrap;
+  }
+
+  .price-route-badge {
+    font-size: 16px;
+  }
+
+  .price-grand-total {
+    font-size: 24px;
+  }
+}

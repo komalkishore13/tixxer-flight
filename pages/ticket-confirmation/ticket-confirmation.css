@@ -1,0 +1,593 @@
+/* ============================================
+   TIXXER FLIGHT — Ticket Confirmation Page
+   ============================================ */
+
+/* ─── Success Banner ─────────────────────── */
+.success-banner {
+  background: linear-gradient(135deg, #0a1628, #1a3a6b);
+  padding: 48px 24px 56px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.success-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(0, 200, 83, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 30%, rgba(79, 172, 254, 0.08) 0%, transparent 50%);
+}
+
+.success-banner-inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* Animated Checkmark */
+.success-checkmark {
+  margin: 0 auto 20px;
+}
+
+.check-circle {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto;
+}
+
+.check-svg {
+  width: 72px;
+  height: 72px;
+}
+
+.check-circle-bg {
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  animation: circleAnim 0.6s ease-out 0.2s forwards;
+}
+
+.check-path {
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: checkAnim 0.4s ease-out 0.7s forwards;
+}
+
+@keyframes circleAnim {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes checkAnim {
+  to { stroke-dashoffset: 0; }
+}
+
+.success-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+  animation: fadeUp 0.5s ease-out 0.4s both;
+}
+
+.success-sub {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.55);
+  animation: fadeUp 0.5s ease-out 0.5s both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Main Page ──────────────────────────── */
+.confirm-page {
+  max-width: 700px;
+  margin: -32px auto 0;
+  padding: 0 24px 60px;
+  position: relative;
+  z-index: 10;
+}
+
+/* ─── Ticket Card (Boarding Pass) ────────── */
+.ticket-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  animation: fadeUp 0.6s ease-out 0.3s both;
+}
+
+/* Ticket Header */
+.ticket-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 28px;
+  background: linear-gradient(135deg, #1a2d50, #1a3a6b);
+  color: white;
+}
+
+.ticket-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.ticket-brand-icon {
+  font-size: 20px;
+}
+
+.ticket-header-right {
+  text-align: right;
+}
+
+.ticket-header-right .ticket-label {
+  font-size: 10px;
+  font-weight: 600;
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.ticket-booking-id {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #4facfe;
+}
+
+/* Ticket Body */
+.ticket-body {
+  padding: 28px;
+}
+
+/* Route Section */
+.ticket-route {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.ticket-endpoint {
+  text-align: center;
+  min-width: 100px;
+}
+
+.ticket-ep-code {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: 2px;
+}
+
+.ticket-ep-city {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.ticket-ep-time {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 8px;
+}
+
+.ticket-ep-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-top: 2px;
+}
+
+.ticket-route-middle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 16px 0;
+}
+
+.ticket-airline-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  background: var(--bg);
+  border-radius: 50px;
+  margin-bottom: 12px;
+}
+
+.ticket-al-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.ticket-al-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.ticket-route-line {
+  width: 100%;
+  position: relative;
+  height: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.ticket-line {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), #4facfe, var(--primary));
+  border-radius: 1px;
+}
+
+.ticket-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.ticket-dot.start {
+  left: -5px;
+  background: var(--primary);
+}
+
+.ticket-dot.end {
+  right: -5px;
+  background: var(--primary);
+}
+
+.ticket-plane {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--white);
+  padding: 0 8px;
+  font-size: 16px;
+  color: var(--primary);
+}
+
+.ticket-duration {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+/* Tear Line (boarding pass perforation effect) */
+.ticket-tear {
+  display: flex;
+  align-items: center;
+  margin: 24px -28px;
+  position: relative;
+}
+
+.tear-circle {
+  width: 24px;
+  height: 24px;
+  background: var(--bg);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tear-circle.left { margin-left: -12px; }
+.tear-circle.right { margin-right: -12px; }
+
+.tear-line {
+  flex: 1;
+  border-top: 2px dashed var(--border);
+}
+
+/* Details Grid */
+.ticket-details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.ticket-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.td-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.td-value {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.td-confirmed {
+  color: var(--accent);
+}
+
+/* Payment Section */
+.ticket-payment {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.ticket-payment-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tp-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tp-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.tp-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.tp-eth {
+  color: var(--primary);
+}
+
+.tp-txhash {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: var(--primary);
+  text-decoration: none;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.tp-txhash:hover {
+  text-decoration: underline;
+}
+
+.tp-network {
+  padding: 2px 10px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-radius: 50px;
+  font-size: 11px;
+}
+
+/* QR Code */
+.ticket-payment-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.ticket-qr {
+  width: 96px;
+  height: 96px;
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.ticket-qr canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.qr-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Ticket Footer */
+.ticket-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.ticket-footer-brand {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* ─── Action Buttons ─────────────────────── */
+.confirm-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 28px;
+  animation: fadeUp 0.5s ease-out 0.6s both;
+}
+
+.btn-download {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, var(--primary), #4facfe);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 16px rgba(26, 115, 232, 0.3);
+}
+
+.btn-download:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(26, 115, 232, 0.4);
+}
+
+.btn-dl-icon {
+  font-size: 18px;
+}
+
+.btn-home {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 24px;
+  background: var(--white);
+  color: var(--text-primary);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-home:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-home-icon {
+  font-size: 18px;
+}
+
+/* ─── Responsive ─────────────────────────── */
+@media (max-width: 768px) {
+  .success-banner {
+    padding: 36px 16px 44px;
+  }
+
+  .success-title {
+    font-size: 24px;
+  }
+
+  .confirm-page {
+    padding: 0 16px 40px;
+  }
+
+  .ticket-body {
+    padding: 20px;
+  }
+
+  .ticket-route {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .ticket-route-middle {
+    width: 100%;
+    padding: 0;
+  }
+
+  .ticket-details-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .ticket-payment {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ticket-payment-right {
+    align-items: center;
+  }
+
+  .ticket-tear {
+    margin: 20px -20px;
+  }
+
+  .ticket-header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .ticket-header-right {
+    text-align: center;
+  }
+
+  .ticket-footer {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
+
+  .confirm-actions {
+    flex-direction: column;
+  }
+
+  .tp-txhash {
+    max-width: 120px;
+  }
+}
+
+/* ─── Print Styles ───────────────────────── */
+@media print {
+  .navbar, .footer, .confirm-actions, .success-banner {
+    display: none !important;
+  }
+
+  .confirm-page {
+    margin: 0;
+    padding: 0;
+  }
+
+  .ticket-card {
+    box-shadow: none;
+    border: 2px solid #000;
+  }
+}

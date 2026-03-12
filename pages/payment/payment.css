@@ -1,0 +1,779 @@
+/* ============================================
+   TIXXER FLIGHT — Payment Page
+   ============================================ */
+
+/* ─── Page Layout ────────────────────────── */
+.payment-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px 60px;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 28px;
+  min-height: calc(100vh - 260px);
+}
+
+/* ─── Title ──────────────────────────────── */
+.payment-title-section {
+  margin-bottom: 24px;
+}
+
+.payment-page-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.payment-page-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ─── Step Cards ─────────────────────────── */
+.pay-step-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+  overflow: hidden;
+  animation: fadeUp 0.5s ease-out both;
+}
+
+.pay-step-card:nth-child(3) { animation-delay: 0.08s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.pay-step-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.pay-step-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.pay-step-num.active {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 3px 10px rgba(26, 115, 232, 0.3);
+}
+
+.pay-step-num.done {
+  background: var(--accent);
+  color: white;
+}
+
+.pay-step-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.pay-step-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.pay-step-body {
+  padding: 28px 24px;
+}
+
+/* ─── Step 1: Connect Wallet ─────────────── */
+.wallet-not-connected {
+  text-align: center;
+  padding: 12px 0;
+}
+
+.metamask-logo-large {
+  font-size: 56px;
+  margin-bottom: 16px;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.wallet-prompt-text {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+}
+
+.btn-connect-wallet {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 36px;
+  background: linear-gradient(135deg, #f6851b, #e2761b);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 16px rgba(226, 118, 27, 0.3);
+}
+
+.btn-connect-wallet:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(226, 118, 27, 0.4);
+}
+
+.btn-connect-wallet:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-fox {
+  font-size: 20px;
+}
+
+.wallet-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 16px;
+}
+
+.wallet-hint strong {
+  color: var(--primary);
+}
+
+/* Connected state */
+.wallet-connected {
+  padding: 4px 0;
+}
+
+.wallet-status-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.wallet-status-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(0, 200, 83, 0); }
+}
+
+.wallet-status-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.wallet-address-box {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  margin-bottom: 16px;
+}
+
+.wallet-address-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 4px;
+}
+
+.wallet-address {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: 'Courier New', monospace;
+  word-break: break-all;
+}
+
+.wallet-info-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.wallet-info-item {
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.wallet-info-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.wallet-info-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ─── Step 2: Payment States ─────────────── */
+
+/* Locked */
+.pay-locked {
+  text-align: center;
+  padding: 32px 0;
+  color: var(--text-muted);
+}
+
+.pay-locked-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+.pay-locked p {
+  font-size: 14px;
+}
+
+/* Ready */
+.pay-ready {
+  padding: 4px 0;
+}
+
+.pay-amount-display {
+  text-align: center;
+  padding: 24px;
+  background: linear-gradient(135deg, #f0f4ff, #e8f0fe);
+  border-radius: var(--radius-md);
+  margin-bottom: 24px;
+  border: 1px solid rgba(26, 115, 232, 0.1);
+}
+
+.pay-amount-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+
+.pay-amount-eth {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -1px;
+}
+
+.pay-amount-fiat {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.pay-details-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.pay-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+
+.pay-detail-row span:first-child {
+  color: var(--text-muted);
+}
+
+.pay-detail-row span:last-child {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.pay-to-addr {
+  font-family: 'Courier New', monospace;
+  font-size: 12px !important;
+}
+
+.pay-network-badge {
+  padding: 3px 10px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-radius: 50px;
+  font-size: 12px !important;
+  font-weight: 600;
+}
+
+.btn-pay-now {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--primary), #4facfe);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 20px rgba(26, 115, 232, 0.3);
+}
+
+.btn-pay-now:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(26, 115, 232, 0.4);
+}
+
+.btn-pay-now:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Processing */
+.pay-processing {
+  text-align: center;
+  padding: 24px 0;
+}
+
+.processing-spinner {
+  width: 52px;
+  height: 52px;
+  border: 4px solid var(--border);
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.processing-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.processing-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.processing-bar-wrap {
+  width: 100%;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.processing-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--primary), #4facfe);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.processing-warn {
+  font-size: 12px;
+  color: #e65100;
+  font-weight: 600;
+}
+
+/* Success */
+.pay-success {
+  text-align: center;
+  padding: 16px 0;
+}
+
+.success-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  margin: 0 auto 16px;
+  animation: scaleIn 0.4s ease-out;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0); }
+  to   { transform: scale(1); }
+}
+
+.success-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.success-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.success-tx-row {
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.success-tx-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.success-tx-hash {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+  font-family: 'Courier New', monospace;
+  word-break: break-all;
+}
+
+.success-redirect {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.success-redirect span {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* Error */
+.pay-error {
+  text-align: center;
+  padding: 24px 0;
+}
+
+.error-icon {
+  width: 64px;
+  height: 64px;
+  background: #e53935;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  margin: 0 auto 16px;
+}
+
+.error-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.error-msg {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.btn-retry {
+  padding: 12px 32px;
+  background: var(--white);
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-retry:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* ─── Payment Sidebar ────────────────────── */
+.payment-sidebar {
+  position: sticky;
+  top: 80px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pay-summary-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  padding: 24px;
+  animation: fadeUp 0.5s ease-out 0.1s both;
+}
+
+.pay-summary-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Flight summary mini */
+.pay-summary-flight {
+  margin-bottom: 4px;
+}
+
+.psf-airline-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.psf-logo {
+  width: 36px;
+  height: 36px;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  object-fit: contain;
+  padding: 3px;
+}
+
+.psf-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.psf-flight-no {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.psf-route-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.psf-point {
+  text-align: center;
+}
+
+.psf-time {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.psf-code {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.psf-mid {
+  flex: 1;
+  text-align: center;
+}
+
+.psf-duration {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.psf-line {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), #4facfe);
+  border-radius: 1px;
+  margin: 4px 0;
+}
+
+.psf-stops {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.psf-meta-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.psf-meta-chip {
+  padding: 4px 10px;
+  background: var(--bg);
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.pay-summary-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 16px 0;
+}
+
+.pay-summary-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pay-summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.pay-summary-row span:first-child {
+  color: var(--text-muted);
+}
+
+.pay-summary-row span:last-child {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.pay-summary-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pay-summary-total-row span:first-child {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.pay-summary-total {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.pay-summary-eth {
+  text-align: right;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: 4px;
+}
+
+.btn-back-payment {
+  width: 100%;
+  padding: 12px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-back-payment:hover {
+  border-color: var(--text-secondary);
+  color: var(--text-primary);
+}
+
+/* ─── Responsive ─────────────────────────── */
+@media (max-width: 1024px) {
+  .payment-page {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .wallet-info-row {
+    grid-template-columns: 1fr;
+  }
+
+  .pay-amount-eth {
+    font-size: 28px;
+  }
+
+  .psf-route-row {
+    gap: 8px;
+  }
+
+  .psf-time {
+    font-size: 16px;
+  }
+}

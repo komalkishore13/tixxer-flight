@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review Booking — Tixxer Flight</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/progress-bar.css">
+  <link rel="stylesheet" href="./review-booking.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈</text></svg>">
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="../index/index.html" class="navbar-logo">
+        <div class="logo-icon">✈</div>
+        Tixxer <span class="highlight">Flight</span>
+      </a>
+      <div class="navbar-links">
+        <a href="../index/index.html">Flights</a>
+        <a href="../my-trips/my-trips.html">My Trips</a>
+      </div>
+      <div class="navbar-actions">
+        <div class="powered-badge">Powered by Sepolia Ethereum</div>
+        <button class="menu-toggle" onclick="toggleMobileMenu()">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== PROGRESS BAR ========== -->
+  <div class="progress-bar">
+    <div class="progress-inner">
+      <div class="progress-step completed">
+        <div class="step-circle">✓</div>
+        <span class="step-label">Search</span>
+      </div>
+      <div class="progress-line completed"></div>
+      <div class="progress-step completed">
+        <div class="step-circle">✓</div>
+        <span class="step-label">Select Flight</span>
+      </div>
+      <div class="progress-line completed"></div>
+      <div class="progress-step completed">
+        <div class="step-circle">✓</div>
+        <span class="step-label">Seat Class</span>
+      </div>
+      <div class="progress-line active"></div>
+      <div class="progress-step active">
+        <div class="step-circle">4</div>
+        <span class="step-label">Review</span>
+      </div>
+      <div class="progress-line"></div>
+      <div class="progress-step">
+        <div class="step-circle">5</div>
+        <span class="step-label">Payment</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="review-page">
+    <div class="review-main">
+      <div class="review-title-section">
+        <h1 class="review-page-title">Review Your Booking</h1>
+        <p class="review-page-sub">Please verify all details before proceeding to payment</p>
+      </div>
+
+      <div class="review-card" id="flightDetailsCard">
+        <div class="review-card-header">
+          <div class="review-card-icon">✈</div>
+          <h2 class="review-card-title">Flight Details</h2>
+        </div>
+        <div class="review-card-body" id="flightDetailsBody"></div>
+      </div>
+
+      <div class="review-card" id="passengerCard">
+        <div class="review-card-header">
+          <div class="review-card-icon">👤</div>
+          <h2 class="review-card-title">Passenger Information</h2>
+        </div>
+        <div class="review-card-body" id="passengerBody"></div>
+      </div>
+
+      <div class="review-card" id="seatClassCard">
+        <div class="review-card-header">
+          <div class="review-card-icon">💺</div>
+          <h2 class="review-card-title">Seat Class</h2>
+        </div>
+        <div class="review-card-body" id="seatClassBody"></div>
+      </div>
+
+      <div class="review-card info-card">
+        <div class="review-card-header">
+          <div class="review-card-icon">ℹ️</div>
+          <h2 class="review-card-title">Important Information</h2>
+        </div>
+        <div class="review-card-body">
+          <ul class="info-list">
+            <li>Payment will be processed on the <strong>Sepolia testnet</strong> using test ETH</li>
+            <li>Please ensure your MetaMask wallet is connected and has sufficient test funds</li>
+            <li>Booking confirmation will be generated after successful payment</li>
+            <li>You can cancel free of charge within 24 hours of booking</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <aside class="review-sidebar">
+      <div class="price-card">
+        <div class="price-card-title">Price Breakdown</div>
+        <div class="price-route-badge" id="priceRoute">
+          <span id="priceFrom">---</span>
+          <span class="route-arrow-sm">→</span>
+          <span id="priceTo">---</span>
+        </div>
+        <div class="price-class-badge" id="priceClassBadge">--</div>
+        <div class="price-rows" id="priceRows"></div>
+        <div class="price-divider"></div>
+        <div class="price-total-section">
+          <div class="price-total-row">
+            <span>Total Amount</span>
+            <span class="price-grand-total" id="priceTotal">--</span>
+          </div>
+          <div class="price-eth-row" id="priceEth">≈ -- ETH</div>
+        </div>
+        <button class="btn-pay" id="btnPay" onclick="continueToPayment()">🦊 Continue to Payment</button>
+        <div class="pay-note">You will be redirected to MetaMask to confirm the transaction</div>
+      </div>
+      <button class="btn-back-review" onclick="goBack()">← Change Seat Class</button>
+    </aside>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">Tixxer <span class="highlight">Flight</span></div>
+      <div class="footer-text">Book flights. Pay with crypto. Built on Sepolia testnet.</div>
+    </div>
+  </footer>
+
+  <script src="../../data/flights.js"></script>
+  <script src="../../components/helpers.js"></script>
+  <script src="../../components/wallet.js"></script>
+  <script src="../../components/booking-summary.js"></script>
+  <script src="./review-booking.js"></script>
+</body>
+</html>
