@@ -299,6 +299,28 @@
   color: var(--primary);
 }
 
+/* ── Back Button ── */
+.btn-back-home {
+  display: block;
+  width: fit-content;
+  margin-top: 24px;
+  padding: 10px 20px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-back-home:hover {
+  background: var(--bg);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .trips-page {
