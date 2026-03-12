@@ -274,25 +274,27 @@
   box-shadow: 0 2px 6px rgba(26, 115, 232, 0.4);
 }
 
-/* Time filter chips */
+/* Time filter list */
 .time-chips {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .time-chip {
-  padding: 10px;
+  padding: 9px 12px;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  text-align: center;
   cursor: pointer;
   transition: var(--transition);
+  display: flex;
+  align-items: center;
 }
 
 .time-chip:hover {
   border-color: var(--primary);
+  background: var(--primary-light);
 }
 
 .time-chip.active {
@@ -302,13 +304,11 @@
 }
 
 .time-chip .time-icon {
-  font-size: 18px;
-  display: block;
-  margin-bottom: 4px;
+  display: none;
 }
 
 .time-chip .time-label {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--text-secondary);
 }
@@ -476,7 +476,7 @@
 /* Column headers */
 .results-col-header {
   display: grid;
-  grid-template-columns: 200px 1fr 100px 120px 140px;
+  grid-template-columns: 200px 1fr 100px 120px 120px;
   align-items: center;
   padding: 10px 24px;
   font-size: 11px;
@@ -493,7 +493,7 @@
   border: 1px solid var(--border);
   padding: 22px 24px;
   display: grid;
-  grid-template-columns: 200px 1fr 100px 120px 140px;
+  grid-template-columns: 200px 1fr 100px 120px 120px;
   align-items: center;
   gap: 12px;
   cursor: pointer;
@@ -683,11 +683,11 @@
 }
 
 .btn-book {
-  padding: 12px 28px;
+  padding: 8px 18px;
   background: linear-gradient(135deg, var(--primary), #4facfe);
   color: white;
   border-radius: var(--radius-sm);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
   transition: var(--transition);
