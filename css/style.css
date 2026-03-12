@@ -840,6 +840,47 @@ input, select {
 }
 
 /* ============================================
+   PAGE BACK BUTTON (Top of every page)
+   ============================================ */
+.page-back-bar {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 14px 24px;
+}
+
+.page-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.page-back-btn:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+  background: var(--primary-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.page-back-btn .back-arrow {
+  font-size: 16px;
+  transition: transform 0.2s ease;
+}
+
+.page-back-btn:hover .back-arrow {
+  transform: translateX(-3px);
+}
+
+/* ============================================
    FOOTER
    ============================================ */
 .footer {
