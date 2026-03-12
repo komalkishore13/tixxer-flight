@@ -21,6 +21,61 @@ function initSearchForm() {
   renderCityDropdown('from');
   renderCityDropdown('to');
   document.addEventListener('click', handleOutsideClick);
+  restoreSearchState();
+}
+
+// ─── Restore Previous Search ────────────────
+function restoreSearchState() {
+  const stored = sessionStorage.getItem('flightSearch');
+  if (!stored) return;
+
+  const data = JSON.parse(stored);
+
+  // Restore from city
+  if (data.from) {
+    searchState.from = data.from;
+    document.getElementById('fromInput').value = `${data.from.city} (${data.from.code})`;
+    document.getElementById('fromSub').textContent = data.from.airport || 'Selected';
+  }
+
+  // Restore to city
+  if (data.to) {
+    searchState.to = data.to;
+    document.getElementById('toInput').value = `${data.to.city} (${data.to.code})`;
+    document.getElementById('toSub').textContent = data.to.airport || 'Selected';
+  }
+
+  // Restore date
+  if (data.departDate) {
+    searchState.departDate = data.departDate;
+    document.getElementById('departDate').value = data.departDate;
+    document.getElementById('departSub').textContent = formatDate(new Date(data.departDate));
+  }
+
+  // Restore trip type
+  if (data.tripType) {
+    searchState.tripType = data.tripType;
+    const tab = document.querySelector(`.trip-tab[data-trip="${data.tripType}"]`);
+    if (tab) {
+      document.querySelectorAll('.trip-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      if (data.tripType === 'roundtrip') {
+        document.getElementById('returnGroup').classList.remove('disabled');
+        document.getElementById('returnDate').disabled = false;
+        if (data.returnDate) {
+          searchState.returnDate = data.returnDate;
+          document.getElementById('returnDate').value = data.returnDate;
+          document.getElementById('returnSub').textContent = formatDate(new Date(data.returnDate));
+        }
+      }
+    }
+  }
+
+  // Restore travellers
+  if (data.travellers) {
+    searchState.travellers = { ...data.travellers };
+    updateTravellersUI();
+  }
 }
 
 // ─── Date Helpers ────────────────────────────

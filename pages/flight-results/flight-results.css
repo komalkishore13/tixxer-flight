@@ -429,6 +429,25 @@
   border-color: #e53935;
 }
 
+.btn-back-search {
+  width: 100%;
+  padding: 10px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-back-search:hover {
+  background: var(--bg);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
 /* ─── Results Column ─────────────────────── */
 .results-column {
   display: flex;

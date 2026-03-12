@@ -23,6 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
   renderFlightSummary();
   renderSeatClassCards('seatClassesGrid', FlightData.seatClasses, flight.basePrice, 'selectSeatClass');
   updateFareSidebar();
+
+  // Restore previously selected seat class
+  const savedClassId = sessionStorage.getItem('selectedSeatClass');
+  if (savedClassId) {
+    selectSeatClass(savedClassId);
+  }
 });
 
 // Render Flight Summary
@@ -85,6 +91,8 @@ function renderFlightSummary() {
 function selectSeatClass(classId) {
   selectedClass = FlightData.seatClasses.find(sc => sc.id === classId);
   if (!selectedClass) return;
+
+  sessionStorage.setItem('selectedSeatClass', classId);
 
   document.querySelectorAll('.seat-card').forEach(card => card.classList.remove('selected'));
   document.getElementById(`seat-${classId}`).classList.add('selected');
