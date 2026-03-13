@@ -129,6 +129,10 @@ function unlockPaymentStep() {
 
 // Step 2: Process Payment
 async function handlePayment() {
+  // Auth gate — block payment if not logged in
+  const tixxerUser = requireTixxerAuth();
+  if (!tixxerUser) return;
+
   if (paymentState === 'processing') return;
   paymentState = 'processing';
 
